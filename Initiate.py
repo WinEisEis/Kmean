@@ -32,6 +32,41 @@ class Initiate:
         plt.scatter(x,y,marker = 'x',color='red')
         return centroid
     
+    # กำหนดสี ของ centroid
+    def PlotCentroid(k,centroid):
+        ColorofCentroid = []
+        ColorofCentroids = ['red','blue','grey','green','black','pink']
+        centroid = np.array(centroid)
+        x,y = centroid.T
+
+        for i in range(0,k):
+            #ถ้าไม่ใช้ append มันจะขึ้นว่า index out of range
+            ColorofCentroid.append(ColorofCentroids[i])
+        plt.scatter(x,y,marker = 'x',color = ColorofCentroid)
+        
+    # กำหนดสีให้กับ Data
+    def PlotData(n,data,cenpoint):
+        ColorofData = []
+        data = np.array(data)
+        x,y = data.T
+        for i in range(0,n):
+            if cenpoint[i] == 0:
+                ColorofData.append('red')
+            elif cenpoint[i] == 1:
+                ColorofData.append('blue')
+            elif cenpoint[i] == 2:
+                ColorofData.append('grey')
+            elif cenpoint[i] == 3:
+                ColorofData.append('green')
+            elif cenpoint[i] == 4:
+                ColorofData.append('black')
+            elif cenpoint[i] == 5:
+                ColorofData.append('pink')
+            else:
+                ColorofData.append('yellow')
+        plt.scatter(x,y,marker = 'o',color = ColorofData)
+        plt.show()
+        
     def PointPlot(data):
         data = np.array(data)
         x,y = data.T
@@ -42,10 +77,5 @@ class Initiate:
     def ComPuteEuclideanDistance(x,y,kx,ky):
         return np.sqrt(((x-kx)**2)+((y-ky)**2))
     
-    def GetColor(k):
-        color = []
-        Colors = ['red','blue','grey','green','black','pink']
-        for i in range(0,k):
-            color[i] = Colors[i]
-        return color
+    
     
