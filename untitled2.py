@@ -16,8 +16,6 @@ x=[]
 y=[]
 cenpoint=[]
 distance=[]
-mins = 0
-OfCentroid = 0
 data=[]
 
 for i in range (0,n):
@@ -43,28 +41,34 @@ centroid = Initiate.InitiateCentroid(k)
 
 Initiate.PointPlot(data)
 
-for i in range(0,n):
-    mins=1000000.0
-    for j in range(0,k):
-        d=Initiate.ComPuteEuclideanDistance(data[i][0],data[i][1],centroid[j][0],centroid[j][1])
-        if d<=mins:
-            mins=d
-            OfCentroid=j
-    # cenpoint คือ array ที่เก็บหมายเลข cluster ของแต่ละ data ไว้
-    cenpoint.append(int(OfCentroid))
+#find cenpoint
+cenpoint = Initiate.FindCenpoint(n,k,data,centroid)
 print("Cenpoint :")
 print(cenpoint)
 
-#<<<<<<< HEAD
-#=======
 #กำหนดสีให้แต่ละกลุ่ม cluster
 Initiate.PlotCentroid(k,centroid)
 #กำหนดสีให้แต่ละ Data 
 Initiate.PlotData(n,data,cenpoint)
 #Calculate new centroid
 newcen = Initiate.CalNewCentroid(n,k,centroid,data,cenpoint)
-
 print("New centroid :")
 print(newcen)
 
-#>>>>>>> 92b20e87a5abdfc5a8270333cde7b5c67fc8e529
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#loop
+flag=0
+new=newcen
+old=centroid
+while(flag==0):
+    if(new == old):
+        flag=1
+    else:
+        cenpoint = Initiate.FindCenpoint(n,k,data,newcen)
+        Initiate.PlotCentroid(k,newcen)
+        Initiate.PlotData(n,data,cenpoint)
+        old = newcen
+        newcen = Initiate.CalNewCentroid(n,k,centroid,data,cenpoint)
+        new = newcen
+
+
