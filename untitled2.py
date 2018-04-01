@@ -29,8 +29,8 @@ for i in range (0,n):
 for i in range (0,n):
     print('x[',i+1,'] and y[',i+1,'] :',end=' ')
     a,b = input().split(' ')
-    x.append(int(a))
-    y.append(int(b))
+    x.append(float(a))
+    y.append(float(b))
 
 for i in range (0,n):
     for j in range (0,2):
@@ -44,13 +44,42 @@ centroid = Initiate.InitiateCentroid(k)
 Initiate.PointPlot(data)
 
 for i in range(0,n):
-    mins=1000000
+    mins=1000000.0
     for j in range(0,k):
         d=Initiate.ComPuteEuclideanDistance(data[i][0],data[i][1],centroid[j][0],centroid[j][1])
         if d<=mins:
             mins=d
             OfCentroid=j
-    
+    # cenpoint คือ array ที่เก็บหมายเลข cluster ของแต่ละ data ไว้
     cenpoint.append(int(OfCentroid))
 print(cenpoint)
 
+<<<<<<< HEAD
+=======
+#กำหนดสีให้แต่ละกลุ่ม cluster
+Initiate.PlotCentroid(k,centroid)
+#กำหนดสีให้แต่ละ Data 
+Initiate.PlotData(n,data,cenpoint)
+
+newcen=centroid
+count=[]
+for i in range (0,k):
+    newcen[i]*=0
+    count.append(0)
+    
+for i in range(0,n):
+    point = cenpoint[i]
+    
+    newcen[point][0] = newcen[point][0]+data[i][0]
+    newcen[point][1] = newcen[point][1]+data[i][1]
+    count[point] = count[point]+1
+print(newcen) 
+print(count)
+print('')
+for i in range(0,k):
+    newcen[i][0] = newcen[i][0]/count[i]
+    newcen[i][1] = newcen[i][1]/count[i]
+print(newcen)
+print(count)
+    
+>>>>>>> 92b20e87a5abdfc5a8270333cde7b5c67fc8e529
