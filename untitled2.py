@@ -61,37 +61,10 @@ print(cenpoint)
 Initiate.PlotCentroid(k,centroid)
 #กำหนดสีให้แต่ละ Data 
 Initiate.PlotData(n,data,cenpoint)
+#Calculate new centroid
+newcen = Initiate.CalNewCentroid(n,k,centroid,data,cenpoint)
 
-#Calculate new centroid point
-newcen=[]
-count=[]
-#Create an array of newcen EX. [[0,0],[0,0]...]
-for i in range (0,k):
-    newcen.append([])
-    count.append(0)
-for i in range (0,k):
-    for j in range (0,2):
-        newcen[i].append(j)
-        newcen[i][j]=0
-
-#Summation of each data in each centroid   
-for i in range(0,n):
-    point = cenpoint[i]
-    
-    newcen[point][0] = newcen[point][0]+data[i][0]
-    newcen[point][1] = newcen[point][1]+data[i][1]
-    count[point] = count[point]+1.0
-
-for i in range(0,k):
-    if(count[i]!=0):
-        newcen[i][0] = newcen[i][0]/count[i]
-        newcen[i][1] = newcen[i][1]/count[i]
-    else: #This else is for checking the count ถ้า count=0 แสดงว่าไม่มี data อยู่ในช่วงนั้นเลย
-          #ให้เก็บค่าเก่าเอาไว้
-        newcen[i][0] = centroid[i][0]
-        newcen[i][1] = centroid[i][1]
 print("New centroid :")
 print(newcen)
-print("Count :")
-print(count)
+
 #>>>>>>> 92b20e87a5abdfc5a8270333cde7b5c67fc8e529
