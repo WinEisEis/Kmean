@@ -53,3 +53,4 @@ for i in range(0,n):
     
     cenpoint.append(int(OfCentroid))
 print(cenpoint)
+
