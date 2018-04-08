@@ -6,6 +6,7 @@ Created on Sun Mar 25 16:39:04 2018
 """
 import numpy as np
 import matplotlib.pyplot as plt
+from multiprocessing.dummy import Pool as ThreadPool 
 from Initiate import Initiate
 
     
