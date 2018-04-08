@@ -6,19 +6,16 @@ Created on Sun Mar 25 16:39:04 2018
 """
 import numpy as np
 import matplotlib.pyplot as plt
-import multiprocessing
+from multiprocessing.dummy import Pool as ThreadPool 
 import time
-from Initiate import Initiate
 
-k = int(input('Input K : '))
-n = int(input('Enter the number of Data :'))
-global k
 
-def FindCenpoint2(data):
+
+def FindCenpoint2(x,y):
     OfCentroid=0
     mins=1000000.0
     for j in range(0,k):
-        d=np.sqrt(((data-1.0)**2)+((data-1.0)**2))
+        d=np.sqrt(((x-centroid[j][0])**2)+((y-centroid[j][1])**2))
         if d<=mins:
             mins=d
             OfCentroid=j
@@ -38,56 +35,59 @@ def InitiateCentroid(k):
             centroid[i][j]=centroids[i][j]   
     
     centroids=centroid
+    return centroids
+    
+    
+#input k and Point x1-xn
+k = int(input('Input K : '))
+n = int(input('Enter the number of Data :'))
 
-def main():  
-    #input k and Point x1-xn
+x=[]
+y=[]
+centroid=[]
+data=[]
 
- 
-    x=[]
-    y=[]
-    centroid=[]
-    data=[]
-    pool = multiprocessing.Pool(processes=2)
-    
-    for i in range (0,n):
-        data.append([])
-    for i in range (0,n):
-        for j in range (0,2):
-            data[i].append(j)
-            data[i][j]=0
-    for i in range (0,n):
-        print('x[',i+1,'] and y[',i+1,'] :',end=' ')
-        a,b = input().split(' ')
-        x.append(float(a))
-        y.append(float(b))
-    
-    for i in range (0,n):
-        for j in range (0,2):
-            if j%2==0:
-                data[i][j]=x[i]
-            else:
-                data[i][j]=y[i]
-    
-   # centroid = InitiateCentroid(k)
+for i in range (0,n):
+    data.append([])
+for i in range (0,n):
+    for j in range (0,2):
+        data[i].append(j)
+        data[i][j]=0
+for i in range (0,n):
+    print('x[',i+1,'] and y[',i+1,'] :',end=' ')
+    a,b = input().split(' ')
+    x.append(float(a))
+    y.append(float(b))
 
-    print(data)
-    pool = multiprocessing.Pool()
-    start2 = time.time()
-    #find cenpoint
-    cenpoint2=[]
-    data=[1,2,3]
-    
-    cenpoint2= pool.map(FindCenpoint2,data)
-    pool.close()
-    pool.join()
-    
-    print("Cenpoint :")
-    print(cenpoint2)
-    time.sleep(1)
-    end2 = time.time()
-    print("Time2 = ",end2-start2)
+for i in range (0,n):
+    for j in range (0,2):
+        if j%2==0:
+            data[i][j]=x[i]
+        else:
+            data[i][j]=y[i]
 
-if __name__ == '__main__':
-    main()
+centroid = InitiateCentroid(k)
+print("centroid :",centroid)
+
+print("data :",data)
+
+start2 = time.time()
+#find cenpoint
+cenpoint2=[]
+data = np.array(data)
+x,y = data.T
+print("X,Y =",x,y)
+pool = ThreadPool()
+result = pool.starmap(FindCenpoint2, zip(x,y)) 
+pool.close() 
+pool.join()
+#print("Cenpoint :")
+#print(cenpoint2)
+print("cenpoint :",result)
+time.sleep(1)
+end2 = time.time()
+print("Time2 = ",end2-start2)
+
+
 
 
