@@ -9,6 +9,29 @@ import matplotlib.pyplot as plt
 from multiprocessing.dummy import Pool as ThreadPool 
 from Initiate import Initiate
 
+def FindCenpoint(x,y):
+    OfCentroid=0
+    mins=1000000.0
+    for j in range(0,k):
+        d=np.sqrt(((x-centroid[j][0])**2)+((y-centroid[j][1])**2))
+        if d<=mins:
+            mins=d
+            OfCentroid=j
+    cenpoint=OfCentroid
+    return cenpoint
+
+def FindNewCenpoint(x,y):
+    OfCentroid=0
+    mins=1000000.0
+    for j in range(0,k):
+        d=np.sqrt(((x-newcen[j][0])**2)+((y-newcen[j][1])**2))
+        if d<=mins:
+            mins=d
+            OfCentroid=j
+    cenpoint=OfCentroid
+    return cenpoint
+
+
     
 #input k and Point x1-xn
 k = int(input('Input K : '))
@@ -42,8 +65,14 @@ centroid = Initiate.InitiateCentroid(k)
 
 Initiate.PointPlot(data)
 
+#Separate Data to a form of x and y
+data = np.array(data)
+x,y = data.T
 #find cenpoint
-cenpoint = Initiate.FindCenpoint(n,k,data,centroid)
+pool = ThreadPool()
+cenpoint = pool.starmap(FindCenpoint, zip(x,y)) 
+pool.close() 
+pool.join()
 print("Cenpoint :")
 print(cenpoint)
 
@@ -65,7 +94,11 @@ while(flag==0):
     if(new == old):
         flag=1
     else:
-        cenpoint = Initiate.FindCenpoint(n,k,data,newcen)
+        #cenpoint = Initiate.FindNewCenpoint(n,k,data,newcen)
+        pool = ThreadPool()
+        cenpoint = pool.starmap(FindNewCenpoint, zip(x,y)) 
+        pool.close() 
+        pool.join()
         Initiate.PlotCentroid(k,newcen)
         Initiate.PlotData(n,data,cenpoint)
         old = newcen
