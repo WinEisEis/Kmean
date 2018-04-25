@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from multiprocessing.dummy import Pool as ThreadPool 
 from Initiate import Initiate
 from random import randint
+import time
 def FindCenpoint(x,y):
     OfCentroid=0
     mins=1000000.0
@@ -29,6 +30,7 @@ def FindNewCenpoint(x,y):
             mins=d
             OfCentroid=j
     cenpoint=OfCentroid
+    time.sleep(1)
     return cenpoint
 
 
@@ -91,6 +93,7 @@ print(newcen)
 flag=0
 new=newcen
 old=centroid
+start = time.time()
 while(flag==0):
     if(new == old):
         flag=1
@@ -98,7 +101,7 @@ while(flag==0):
         #cenpoint = Initiate.FindNewCenpoint(n,k,data,newcen)
         count += 1
         print("No: ",count)
-        pool = ThreadPool()
+        pool = ThreadPool(10)
         cenpoint = pool.starmap(FindNewCenpoint, zip(x,y)) 
         pool.close() 
         pool.join()
@@ -108,4 +111,7 @@ while(flag==0):
         newcen = Initiate.CalNewCentroid(n,k,centroid,data,cenpoint)
         new = newcen
 
+end = time.time()
 
+print("Time = ")
+print(end-start)
