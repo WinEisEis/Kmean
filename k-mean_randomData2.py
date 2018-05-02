@@ -41,13 +41,15 @@ class LoginFrame(Frame):
 
     def _login_btn_clicked(self):
         # print("Clicked")
+        global k
+        global data
         k = self.entry_k.get()
         data = self.entry_data.get()
         k = int(k)
         data = int(data)
-        self.root.destroy()
         
-        
+        root.destroy()
+               
         #if username == "john" and password == "password":
         #if isinstance(username, str):
         #    tm.showinfo("Login info", "Welcome John")
@@ -59,20 +61,12 @@ class LoginFrame(Frame):
 root = Tk()
 root.geometry('450x150+500+300')
 root.title("K-Mean")
-k = LoginFrame(root)
+lf = LoginFrame(root)
 root.mainloop()
+n = data
+#print(k,data)
 
-print(k,n)
-
-
-
-
-
-
-
-
-
-
+#Main function
 def FindCenpoint(x,y):
     OfCentroid=0
     mins=1000000.0
@@ -164,7 +158,7 @@ while(flag==0):
         #cenpoint = Initiate.FindNewCenpoint(n,k,data,newcen)
         count += 1
         print("No: ",count)
-        pool = ThreadPool(10)
+        pool = ThreadPool(n)
         cenpoint = pool.starmap(FindNewCenpoint, zip(x,y)) 
         pool.close() 
         pool.join()
