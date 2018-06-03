@@ -25,7 +25,8 @@ class Initiate:
         plt.title('K-Mean Clustering')
         centroid = np.array(centroid)
         x,y = centroid.T
-        plt.scatter(x,y,marker = 'x',color='red')
+        s = [20*5 for n in range(len(centroid))]
+        plt.scatter(x,y,marker = 'x',color='red',s=s)
         return centroids
     
     # กำหนดสี ของ centroid
@@ -38,7 +39,8 @@ class Initiate:
         for i in range(0,k):
             #ถ้าไม่ใช้ append มันจะขึ้นว่า index out of range
             ColorofCentroid.append(ColorofCentroids[i])
-        plt.scatter(x,y,marker = 'x',color = ColorofCentroid)
+        s = [20*5 for n in range(len(centroid))]
+        plt.scatter(x,y,marker = 'x',color = ColorofCentroid,s=s)
         
     # กำหนดสีให้กับ Data
     def PlotData(n,data,cenpoint):

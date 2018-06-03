@@ -119,8 +119,8 @@ for i in range (0,n):
         data[i].append(j)
         data[i][j]=0
 for i in range (0,n):
-    a = randint(0, 1000)
-    b = randint(0, 1000)
+    a = randint(0, 100)
+    b = randint(0, 100)
     x.append(float(a))
     y.append(float(b))
     
